@@ -10,7 +10,13 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="/login">Login</a></li>
+            <li class="navbar-text"><%= usuario.nome %></li>
+            <%  if(usuario.nome == '') { %>
+                <li><a href="/login">Login</a></li>
+            <%  } else { %>
+                <li><a href="/loggout">Loggout</a></li>
+            <%  }  %>
+
         </ul>
     </div>
 </nav>
