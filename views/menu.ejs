@@ -20,3 +20,24 @@
         </ul>
     </div>
 </nav>
+
+<% if(usuario.id !== null) {%>
+
+    <div class="container">
+        <nav class="navbar navbar-primary">
+            <div class="navbar-header">
+                <span class="navbar-brand">Administração do blog</span>
+            </div>
+            <ul class="nav navbar-nav">
+                <% if(usuario.admin) {%>
+                    <li><a href="/admin/artigos">Artigos</a></li>
+                <% } %>
+
+                <% if(usuario.admin) {%>
+                    <li><a href="/admin/autores">Autores</a></li>
+                <% } %>
+            </ul>
+        </nav>
+    </div>
+
+<% } %>

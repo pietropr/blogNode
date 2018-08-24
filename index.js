@@ -12,16 +12,19 @@ mongoose.connect('mongodb://localhost:27017/blog');
 
 // Rotas filhas
 var adminAutorRouters = require('./controller/AutorController');
-
-
-
 app.use('/admin/autores', adminAutorRouters);
+var adminArtigoRouters = require('./controller/ArtigoController');
+app.use('/admin/artigos', adminArtigoRouters);
+
+
+//Roteamentos
+app.use('/public', express.static('./public'));
+
+
 
 app.set('usuario', {id: null,nome: '', admin: false});
 app.set('view engine', 'ejs');
 
-//Roteamentos
-app.use('/public', express.static('./public'));
 app.get('/login', function(req, res) {
 	res.render('login', {usuario: app.get('usuario') });
 });

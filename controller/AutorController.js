@@ -7,9 +7,10 @@ var Autor = require('../models/autorModel');
 
 //verifica login
 autorRoute.use(function (req, res, next) {
-    if(req.app.get('usuario').nome == '') {
-        res.redirect('/')
+    if(req.app.get('usuario').id == null) {
+        res.redirect('/');
     }
+
     next();
 });
 
