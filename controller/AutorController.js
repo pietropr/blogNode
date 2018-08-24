@@ -60,4 +60,10 @@ autorRoute.post('/:id', urlEncondedParse, function(req, res) {
     })
 });
 
+autorRoute.get('/:id/excluir', function(req, res) {
+    Autor.remove({_id: req.params.id}, function (erro) {
+        res.render('autor/removido', {usuario: req.app.get('usuario')});
+    });
+});
+
 module.exports = autorRoute;
