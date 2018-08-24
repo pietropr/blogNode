@@ -5,6 +5,9 @@ var bodyParser = require('body-parser');
 var urlEncondedParser = bodyParser.urlencoded({extended: false});
 var mongoose = require('mongoose');
 
+//Models
+var Autor = require('./models/autorModel');
+
 mongoose.connect('mongodb://localhost:27017/blog');
 
 // Rotas filhas
@@ -14,7 +17,7 @@ var adminAutorRouters = require('./controller/AutorController');
 
 app.use('/admin/autores', adminAutorRouters);
 
-app.set('usuario', {nome: ''});
+app.set('usuario', {id: null,nome: '', admin: false});
 app.set('view engine', 'ejs');
 
 //Roteamentos
@@ -23,15 +26,18 @@ app.get('/login', function(req, res) {
 	res.render('login', {usuario: app.get('usuario') });
 });
 app.post('/login', urlEncondedParser, function(req, res) {
-
-	if(req.body.email === 'pintonpietro@gmail.com' && req.body.senha === '1234') {
-
-		app.set('usuario', {nome: "Pietro Pinton" });
-		res.redirect('/admin/artigos');
-	}
-	else {
-		res.render('loginInvalido');
-	}
+    //Procurar no banco pelo digitado
+	Autor.findOne({email: req.body.email}, function (erro, autor) {
+		if(erro) return console.log(erro);
+        if(req.body.senha != autor.senha) {
+            res.render('logininvalido', {usuario: app.get('usuario')})
+            return;
+        }
+        else {
+            app.set('usuario', {id: autor._id, nome: autor.nome, admin: autor.admin});
+            res.redirect('/admin/autores');
+        }
+    });
 
 });
 
