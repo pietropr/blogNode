@@ -1,0 +1,19 @@
+<%- include('../cabecalho'); %>
+
+<div class="container">
+
+    <h2>Autor</h2>
+    <form class="" method="post" action="/admin/autores/<%=autor.id%>">
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <%- include('form') %>
+                <button type="submit" class="btn btn-primary">Alterar</button>
+                <a class="btn btn-default" href="/admin/autores/">Cancelar</a>
+                <a class="btn btn-danger" href="/admin/autores/<%=autor.id%>/excluir">Excluir</a>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<%- include('../rodape') %>
