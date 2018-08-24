@@ -1,28 +1,26 @@
-body {
-	min-height: 100vh;
-	position: relative;
-}
-
-h1, h2 {
-	margin-bottom: 1em;
+h1 {
+    margin-bottom: 1em;
 }
 
 footer {
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	margin-top: 30px;
-	background: #ddd;
-}
-
-footer small {
-	display: block;
-	width: 100%;
-	padding: 10px;
-	text-align: center;
+    margin-top: 3em;
+    margin-bottom: 2em;
 }
 
 .navbar {
-	background: #f8f8f8;
-	border-bottom: 1px solid #d7d7d7;
+    background-color: #f8f8f8;
+    border: 1px solid #e7e7e7;
+    border-radius: 4px;
+}
+
+.controlecurtir {
+    cursor: pointer;
+}
+
+.glyphicon-thumbs-up.marcado {
+    color: green;
+}
+
+.glyphicon-thumbs-down.marcado {
+    color: red;
 }

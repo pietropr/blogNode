@@ -1,0 +1,17 @@
+<%- include('cabecalho') %>
+<%- include('menu') %>
+
+<div class="container">
+
+    <h1>Autores</h1>
+
+    <ul>
+    <% autores.forEach(function(autor){ %>
+
+        <li><a href="/artigos/<%=autor._id%>"><%=autor.nome%></a></li>
+
+    <% }); %>
+
+</div>
+
+<%- include('rodape') %>

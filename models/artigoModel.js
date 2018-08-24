@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema();
+var Schema = mongoose.Schema;
 
-
-var Artigo = new Schema(
+var artigoSchema = new Schema(
     {
         titulo: {type: String, required: true},
         autor: {
@@ -13,16 +12,14 @@ var Artigo = new Schema(
         atualizado: Date,
         resumo: String,
         texto: String,
-        comentarios: [
-            {
-                nome: String,
-                texto: String,
-                data: {type: Date, default: Date.now},
-                curtiu: {type: Number, default: 0},
-                naocurtiu: {type: Number, default: 0}
-            }
-        ]
+        comentarios: [{
+            nome: String,
+            texto: String,
+            data: {type: Date, default: Date.now},
+            curtiu: {type: Number, default: 0},
+            naocurtiu: {type: Number, default: 0}
+        }]
     }
 );
 
-module.exports = mongoose.model('Artigo', Artigo);
+module.exports = mongoose.model('Artigo', artigoSchema);

@@ -1,33 +1,62 @@
 <%- include('cabecalho') %>
+<%- include('menu') %>
 
 <div class="container">
 
-    <p></p>
-    <h2><a href="#">Título</a> <small>por autor</small></h2>
-    <p><small>24 de Agosto de 2016, às 14:30:00</small></p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe
-        quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p>
-    <hr>
+    <h1>
+        Artigos
+        <% if(filtro) { %>
+            de <%=filtro.nome%>
+        <% } %>
 
-    <h2><a href="#">Título</a> <small>por autor</small></h2>
-    <p><small>24 de Agosto de 2016, às 14:30:00</small></p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe
-        quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p>
-    <hr>
+    </h1>
 
-    <h2><a href="#">Título</a> <small>por autor</small></h2>
-    <p><small>24 de Agosto de 2016, às 14:30:00</small></p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe
-        quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p>
-    <hr>
+<%
+    var i=-1;
+    var conta=0;
+     artigos.forEach(function(artigo){ 
+        i++;
+        if( i>=(parseInt(pagina)*parseInt(quantidade)) ) {
+            if( conta<parseInt(quantidade) ) {
+        %>
+                <h3><a href="/artigo/<%=artigo._id%>"><%=artigo.titulo%></a> <small>por <a href="/artigos/<%=artigo.autor.id%>"><%=artigo.autor.nome%></a></small></h3>
+                <p><small><%= formataData(artigo.criado)%>
+                <% if(artigo.atualizado) { %>
+                    <br>Atualizado em <%=formataData(artigo.atualizado)%>
+                <% } %>
+                </small></p>
+                <p><%=artigo.resumo%></p>
+                <hr>
+        <%
+                conta++;
+             }
+        }
+     }); %>
 
-    <h2><a href="#">Título</a> <small>por autor</small></h2>
-    <p><small>24 de Agosto de 2016, às 14:30:00</small></p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus, vero, obcaecati, aut, error quam sapiente nemo saepe
-        quibusdam sit excepturi nam quia corporis eligendi eos magni recusandae laborum minus inventore?</p>
-    <hr>
-
-    <p><a href="#">Mais antigas</a> &#0149; <a href="#">Mais recentes</a></p>
+    <p>
+    <% if(parseInt(quantidade)>conta) { %>
+        Mais antigas
+    <% } else { 
+        if(!filtro) {
+    %> 
+            <a href="/artigos/pagina/<%=(parseInt(pagina)+1)%>">Mais antigas</a>
+    <%  } else { %>
+            <a href="/artigos/<%=filtro.id%>/pagina/<%=(parseInt(pagina)+1)%>">Mais antigas</a>
+     <%   }
+     } %>
+        
+     &#0149;
+    <% if(parseInt(pagina)==0) { %>
+        Mais recentes
+    <% } else {  
+        if(!filtro) {
+    %> 
+            <a href="/artigos/pagina/<%=(parseInt(pagina)-1)%>">Mais recentes</a>
+    <%  } else { %>
+            <a href="/artigos/<%=filtro.id%>/pagina/<%=(parseInt(pagina)-1)%>">Mais recentes</a>
+     <%   }
+     } %>
+    </p>
 </div>
 
 <%- include('rodape') %>

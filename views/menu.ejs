@@ -1,4 +1,4 @@
-<nav class="navbar navbar-primary navbar-fixed">
+<nav class="navbar navbar-primary">
     <div class="container-fluid">
         <div class="navbar-header">
             <span class="navbar-brand">Blog com Node.js</span>
@@ -11,29 +11,25 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li class="navbar-text"><%= usuario.nome %></li>
-            <%  if(usuario.nome == '') { %>
+            <% if(usuario.id==null) { %>
                 <li><a href="/login">Login</a></li>
-            <%  } else { %>
-                <li><a href="/loggout">Loggout</a></li>
-            <%  }  %>
-
+            <% } else { %>
+                <li><a href="/logout">Logout</a></li>
+            <% } %>
         </ul>
     </div>
+
 </nav>
 
-<% if(usuario.id !== null) {%>
-
+<% if(usuario.id != null) { %>
     <div class="container">
         <nav class="navbar navbar-primary">
             <div class="navbar-header">
                 <span class="navbar-brand">Administração do blog</span>
             </div>
             <ul class="nav navbar-nav">
-                <% if(usuario.admin) {%>
-                    <li><a href="/admin/artigos">Artigos</a></li>
-                <% } %>
-
-                <% if(usuario.admin) {%>
+                <li><a href="/admin/artigos">Artigos</a></li>
+                <% if(usuario.admin) { %>
                     <li><a href="/admin/autores">Autores</a></li>
                 <% } %>
             </ul>

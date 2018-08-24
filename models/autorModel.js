@@ -1,13 +1,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// Modelo Autor
 var autorSchema = new Schema(
     {
         nome: String,
         email: String,
         senha: String,
-        admin: { type: Boolean, default: false}
+        admin: { type: Boolean, default: false }
     }
 );
 

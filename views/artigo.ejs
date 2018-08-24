@@ -1,0 +1,70 @@
+<%- include('cabecalho') %>
+<%- include('menu') %>
+
+<div class="container">
+
+    <h2><%=artigo.titulo%></h2>
+    <p class="lead">por <a href="/artigos/<%=artigo.autor.id%>"><%=artigo.autor.nome%></a></p>
+    <p><small><span class="glyphicon glyphicon-time"></span> Criado em <%= formataData(artigo.criado) %>
+          <% if(artigo.atualizado) { %>
+              <br><span class="glyphicon glyphicon-edit"></span> Atualizado em <%=formataData(artigo.atualizado)%>
+          <% } %>
+    </small></p>
+    <hr>
+
+    <div><%- artigo.texto %></div>
+    <hr>
+
+    <div class="well">
+        <h4>Deixe um comentário:</h4>
+        <form role="form" method="POST" action="/artigo/<%=artigo._id%>/comentario">
+            <div class="form-group">
+                <input type="text" class="form-control" name="nome" placeholder="Nome"></textarea>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" rows="3" name="comentario" placeholder="Comentário"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+
+    <% artigo.comentarios.forEach(function(comentario) { %>
+    <div style="margin-top: 2em">
+        <div style="position: absolute; font-size:xx-large">
+            <span class="glyphicon glyphicon-user"></span>
+        </div>
+        <div style="margin-left: 3em">
+            <h4><%=comentario.nome%></h4>
+            <p class="text-muted"><small><%=formataData(comentario.data)%></small></p>
+            
+            <p><%=comentario.texto%></p>
+            <p>
+                <span id="curtir_<%=comentario._id%>" onclick="curtir('<%=artigo._id%>', '<%=comentario._id%>')" class="controlecurtir glyphicon glyphicon-thumbs-up"></span> <span  id="curtidas_<%=comentario._id%>"><%=comentario.curtiu%></span> &nbsp; 
+                <span id="naocurtir_<%=comentario._id%>" onclick="naocurtir('<%=artigo._id%>', '<%=comentario._id%>')" class="controlecurtir glyphicon glyphicon-thumbs-down"></span> <span  id="naocurtidas_<%=comentario._id%>"><%=comentario.naocurtiu%></span>
+            </p>
+        </div>
+    </div>
+    <% }); %>
+
+</div>
+
+<%- include('rodape') %>
+
+<script>
+    $(document).ready(function(){
+        var listaComentarios = [
+            <% artigo.comentarios.forEach(function(comentario) { %>
+                '<%=comentario._id%>', 
+            <% }); %>
+        ];
+        listaComentarios.forEach(function(comentario_id){
+            var curtiu = localStorage.getItem('comentario_'+comentario_id);
+            if(curtiu==1) {
+                $('#curtir_'+comentario_id).addClass('marcado');
+            } else if(curtiu==-1) {
+                $('#naocurtir_'+comentario_id).addClass('marcado');
+            }
+        });
+
+    });
+</script>
